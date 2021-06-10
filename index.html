@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+</head>
+<script src="pixi/pixi.min.js"></script>
+<script src="playerinput.js"></script>
+<script src="playarea.js"></script>
+<script src="tetriminos.js"></script>
+<script src="block.js"></script>
+
+<body>
+
+<script type="text/javascript">
+
+    const playArea = new PlayArea();
+
+    const tickTimer = 30//120;
+    var tickCount = 0;
+
+    var currentPiece = undefined;
+
+    const app = new PIXI.Application(
+        {
+            width: 640,
+            height: 960,
+            antialias: true
+        }
+    );
+
+    const loader = PIXI.Loader.shared;
+
+    document.body.appendChild(app.view);
+
+    loader.add(["assets/bg_full.jpg",
+        "assets/block_blue.png",
+        "assets/block_green.png",
+        "assets/block_orange.png",
+        "assets/block_pink.png",
+        "assets/block_red.png",
+        "assets/block_violet.png",
+        "assets/block_yellow.png",
+    ]).load(onAssetsLoaded);
+
+    function onAssetsLoaded(){
+
+        let bgdSprite = new PIXI.Sprite(
+            loader.resources["assets/bg_full.jpg"].texture
+        );
+        app.stage.addChild(bgdSprite);
+
+        //input
+        let left = keyboard("ArrowLeft"),
+            down = keyboard("ArrowDown"),
+            up = keyboard("ArrowUp"),
+            right = keyboard("ArrowRight");
+
+        left.press = () => {
+            currentPiece.tryMove("left");
+        };
+        right.press = () => {
+            currentPiece.tryMove("right");
+        };
+        down.press = () => {
+            currentPiece.drop();
+        };
+        up.press = () => {
+            currentPiece.tryRotate();
+        };
+
+        app.ticker.add(delta => gameLoop(delta));
+        playArea.onTetriminoLanded();
+    }
+
+    function gameLoop(delta){
+        tickCount += 1 + delta;
+        if(tickCount >= tickTimer){
+            tickCount -= tickTimer;
+            if(false == currentPiece.tryMove("down")){
+                playArea.onTetriminoLanded();
+            }
+        }
+    }
+</script>
+</body>
+</html>
