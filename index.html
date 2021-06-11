@@ -16,8 +16,9 @@
 
     const playArea = new PlayArea();
 
-    const tickTimer = 30//120;
+    const tickTimer = 60;
     var tickCount = 0;
+    var playerInputEnabled = true;
 
     var currentPiece = undefined;
 
@@ -35,6 +36,7 @@
 
     loader.add(["assets/bg_full.jpg",
         "assets/block_blue.png",
+        "assets/block_light_blue.png",
         "assets/block_green.png",
         "assets/block_orange.png",
         "assets/block_pink.png",
@@ -57,16 +59,23 @@
             right = keyboard("ArrowRight");
 
         left.press = () => {
-            currentPiece.tryMove("left");
+            if(playerInputEnabled)
+                currentPiece.tryMove("left");
         };
         right.press = () => {
-            currentPiece.tryMove("right");
+            if(playerInputEnabled)
+                currentPiece.tryMove("right");
         };
         down.press = () => {
-            currentPiece.drop();
+            if(playerInputEnabled){
+                currentPiece.drop();
+                playerInputEnabled = false;
+            }
+
         };
         up.press = () => {
-            currentPiece.tryRotate();
+            if(playerInputEnabled)
+                currentPiece.tryRotate();
         };
 
         app.ticker.add(delta => gameLoop(delta));
@@ -77,6 +86,7 @@
         tickCount += 1 + delta;
         if(tickCount >= tickTimer){
             tickCount -= tickTimer;
+            playerInputEnabled = true;
             if(false == currentPiece.tryMove("down")){
                 playArea.onTetriminoLanded();
             }

@@ -51,13 +51,37 @@ PlayArea.prototype.areCoordinatesUnoccupied = function (x,y) {
     return this.grid[y][x] == undefined;
 }
 
+PlayArea.prototype.getRandomTetrimino = function (){
+    let r = Math.floor(Math.random() * 4);
+    switch (r){
+        case 0:
+            return new TetriminoO();
+            break;
+        case 1:
+            return new TetriminoL();
+            break;
+        case 2:
+            return new TetriminoI();
+            break;
+        case 3:
+            return new TetriminoJ();
+            break;
+    }
+}
 
-
-PlayArea.prototype.insertTetriminoIntoGird = function (tetrimino) {
+PlayArea.prototype.tryInsertTetriminoIntoGird = function (tetrimino) {
     for (let i = 0; i < tetrimino.blocks.length; i++) {
         let block = tetrimino.blocks[i];
-        this.grid[block.y][ block.x] = block;
+        if(block.y <= 0){
+            return false;
+        }
     }
+
+    for (let i = 0; i < tetrimino.blocks.length; i++) {
+        let block = tetrimino.blocks[i];
+        this.grid[block.y][block.x] = block;
+    }
+    return true;
 }
 
 PlayArea.prototype.destroyFilledRows = function () {
@@ -80,9 +104,12 @@ PlayArea.prototype.destroyFilledRows = function () {
 PlayArea.prototype.destroyRow = function (n) {
     for (let i = 0; i < gridColumns; i++) {
         //probably should be deallocated in some way
-        this.grid[n][i].sprite.visible = false;
-        this.grid[n][i] = undefined;
+        if(this.grid[n][i]!=undefined){
+            this.grid[n][i].sprite.visible = false;
+            this.grid[n][i] = undefined;
+        }
     }
+
     for (let i = n; i >= 0; i--) {
         for (let j = 0; j < gridColumns; j++) {
             if(i > 0){
@@ -97,10 +124,25 @@ PlayArea.prototype.destroyRow = function (n) {
     }
 }
 
+PlayArea.prototype.restartGame = function () {
+
+    for (let i = 0; i < currentPiece.blocks.length; i++) {
+        currentPiece.blocks[i].sprite.visible = false;
+    }
+
+    for (let i = 0; i < gridRows; i++) {
+        this.destroyRow(i);
+    }
+
+}
+
 PlayArea.prototype.onTetriminoLanded = function () {
     if(currentPiece != undefined){
         //console.log("Piece INSERTED")
-        this.insertTetriminoIntoGird(currentPiece);
+        if(false == this.tryInsertTetriminoIntoGird(currentPiece)){
+            playerInputEnabled=false;
+            this.restartGame();
+        }
     }
     this.destroyFilledRows();
 
@@ -119,5 +161,6 @@ PlayArea.prototype.onTetriminoLanded = function () {
 
     console.log(debugText);
 
-    currentPiece = new TetriminoJ();
+    //currentPiece = new TetriminoJ();
+    currentPiece = this.getRandomTetrimino();
 }

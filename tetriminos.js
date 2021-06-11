@@ -52,17 +52,15 @@ Tetrimino.prototype.tryRotate = function () {
     }
 }
 
-//Square
 function TetriminoO()
 {
     Tetrimino.call(this);
 
     this.color="yellow";
 
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
 
     this.blocks[0].setPosition(tetriminoSpawnXCoordinate, 0);
     this.blocks[1].setPosition(tetriminoSpawnXCoordinate + 1, 0);
@@ -75,21 +73,21 @@ TetriminoO.prototype = new Tetrimino();
 TetriminoO.prototype.constructor = TetriminoO;
 
 
-function TetriminoJ()
+function TetriminoL()
 {
+
     Tetrimino.call(this);
 
     this.color="orange";
 
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
-    this.blocks.push(new Block(this.color, this));
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
 
-    this.blocks[0].setPosition(tetriminoSpawnXCoordinate -1, -1);
-    this.blocks[1].setPosition(tetriminoSpawnXCoordinate, -1);
-    this.blocks[2].setPosition(tetriminoSpawnXCoordinate , 0);
-    this.blocks[3].setPosition(tetriminoSpawnXCoordinate, 1);
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate -1, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate, 0);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate , 1);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate, 2);
 
     this.rotations= [
         [[0, 0],[0,0],[-1,1],[1,1]],
@@ -98,6 +96,54 @@ function TetriminoJ()
         [[0,0],[1,-1],[2,-2],[-1,-1]],
     ]
 }
+TetriminoL.prototype = new Tetrimino();
+TetriminoL.prototype.constructor = TetriminoL;
+
+function TetriminoJ()
+{
+    Tetrimino.call(this);
+
+    this.color="blue";
+
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
+
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate, 1);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate -1, 2);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate, 2);
+
+    this.rotations= [
+        [[1, 0],[1,0],[-1,1],[-1,1]],
+        [[-1, 0],[0,-1],[2,-2],[1,-1]],
+        [[0,0],[0,0],[-2,1],[-2,1]],
+        [[0,0],[-1,1],[1,0],[2,-1]],
+    ]
+}
 TetriminoJ.prototype = new Tetrimino();
 TetriminoJ.prototype.constructor = TetriminoJ;
+
+function TetriminoI()
+{
+    Tetrimino.call(this);
+
+    this.color="light_blue";
+
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
+
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate -1, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate, 0);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate +1, 0);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate +2, 0);
+
+    this.rotations= [
+        [[0, 0],[1,-1],[2,-2],[3,-3]],
+        [[0, 0],[-1,1],[-2,2],[-3,3]],
+    ]
+}
+TetriminoI.prototype = new Tetrimino();
+TetriminoI.prototype.constructor = TetriminoI;
 
