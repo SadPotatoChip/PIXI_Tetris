@@ -124,6 +124,77 @@ function TetriminoJ()
 TetriminoJ.prototype = new Tetrimino();
 TetriminoJ.prototype.constructor = TetriminoJ;
 
+function TetriminoS()
+{
+    Tetrimino.call(this);
+
+    this.color="green";
+
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
+
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate + 1, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate + 2, 0);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate , 1);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate + 1, 1);
+
+    this.rotations= [
+        [[1, 0],[2,-1],[-1,0],[0,-1]],
+        [[-1, 0],[-2,1],[1,0],[0, 1]]
+    ]
+}
+TetriminoS.prototype = new Tetrimino();
+TetriminoS.prototype.constructor = TetriminoS;
+
+function TetriminoZ()
+{
+    Tetrimino.call(this);
+
+    this.color="red";
+
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
+
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate + 1, 0);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate + 1, 1);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate + 2, 1);
+
+    this.rotations= [
+        [[-2, 0],[0,-1],[-1,0],[1,-1]],
+        [[2, 0],[0,1],[1,0],[-1, 1]]
+    ]
+}
+TetriminoZ.prototype = new Tetrimino();
+TetriminoZ.prototype.constructor = TetriminoZ;
+
+function TetriminoT()
+{
+    Tetrimino.call(this);
+
+    this.color="pink";
+
+    for (let i = 0; i < 4; i++) {
+        this.blocks.push(new Block(this.color, this));
+    }
+
+    this.blocks[0].setPosition(tetriminoSpawnXCoordinate, 0);
+    this.blocks[1].setPosition(tetriminoSpawnXCoordinate + 1, 0);
+    this.blocks[2].setPosition(tetriminoSpawnXCoordinate + 2, 0);
+    this.blocks[3].setPosition(tetriminoSpawnXCoordinate + 1, 1);
+
+    this.rotations= [
+        [[-2, 0],[0,-1],[0,-1],[-1,-1]],
+        [[0, 0],[-1,1],[-1,1],[-1,1]],
+        [[1,0],[0,0],[0,0],[2,-1]],
+        [[1,0],[1,0],[1,0],[0,1]],
+    ]
+}
+TetriminoT.prototype = new Tetrimino();
+TetriminoT.prototype.constructor = TetriminoT;
+
 function TetriminoI()
 {
     Tetrimino.call(this);

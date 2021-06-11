@@ -52,7 +52,7 @@ PlayArea.prototype.areCoordinatesUnoccupied = function (x,y) {
 }
 
 PlayArea.prototype.getRandomTetrimino = function (){
-    let r = Math.floor(Math.random() * 4);
+    let r = Math.floor(Math.random() * 7);
     switch (r){
         case 0:
             return new TetriminoO();
@@ -65,6 +65,15 @@ PlayArea.prototype.getRandomTetrimino = function (){
             break;
         case 3:
             return new TetriminoJ();
+            break;
+        case 4:
+            return new TetriminoS();
+            break;
+        case 5:
+            return new TetriminoZ();
+            break;
+        case 6:
+            return new TetriminoT();
             break;
     }
 }
@@ -159,8 +168,8 @@ PlayArea.prototype.onTetriminoLanded = function () {
         debugText+="\n";
     }
 
-    console.log(debugText);
+    //console.log(debugText);
 
-    //currentPiece = new TetriminoJ();
+    //currentPiece = new TetriminoT();
     currentPiece = this.getRandomTetrimino();
 }
